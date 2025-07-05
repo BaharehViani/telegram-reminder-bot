@@ -6,7 +6,8 @@ from apscheduler.triggers.cron import CronTrigger
 from apscheduler.triggers.date import DateTrigger
 from persiantools.jdatetime import JalaliDate
 from telegram import Bot
-from utils.constants import DATA_FILE, TELEGRAM_TOKEN
+from utils.constants import TELEGRAM_TOKEN
+from utils.constants import DATA_FILE
 
 bot = Bot(token=TELEGRAM_TOKEN)
 scheduler = AsyncIOScheduler(timezone="Asia/Tehran")

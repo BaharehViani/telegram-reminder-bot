@@ -7,9 +7,6 @@ from handlers.commands import start_command, help_command, new_reminder_command,
 from handlers.callbacks import frequency_callback, day_selection_callback, action_callback, destination_callback
 from handlers.messages import handle_message, label_router
 from handlers.chat_member import chat_member_added
-from keep_alive import keep_alive
-
-keep_alive()
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
