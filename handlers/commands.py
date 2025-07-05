@@ -11,10 +11,13 @@ logger = logging.getLogger(__name__)
 
 async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
+    first_name = update.effective_user.first_name or "دوست عزیز"
     context.user_data.update(load_user_data(user_id))
     await update.message.reply_text(
-        "سلام! من یک ربات یادآور هستم.\n"
-        "برای انتخاب هر گزینه، روی دکمه‌ها کلیک کن:",
+        f"سلام {first_name} 👋\n"
+        "من «یادت نره» هستم، یه دستیار یادآور! 🤖\n"
+        "میتونم بهت کمک کنم هیچ کاری رو فراموش نکنی.\n\n"
+        "برای شروع، فقط کافیه یکی از دکمه‌های زیر رو بزنی 👇",
         reply_markup=get_main_keyboard()
     )
     save_user_data(user_id, context.user_data)
@@ -24,7 +27,7 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
     context.user_data.update(load_user_data(user_id))
     help_text = (
-        "🤖 راهنمای استفاده از ربات یادآور\n\n"
+        "🤖 «راهنمای استفاده از بات یادآور «یادت نره\n\n"
         "🟢 برای شروع، از منوی پایین یا دستورات زیر استفاده کنید:\n\n"
         "📌 /newReminder - ایجاد یادآور جدید\n"
         "📋 /showReminder - نمایش آخرین یادآور\n"
