@@ -7,6 +7,7 @@ from handlers.commands import start_command, help_command, new_reminder_command,
 from handlers.callbacks import frequency_callback, day_selection_callback, action_callback, destination_callback
 from handlers.messages import handle_message, label_router
 from handlers.chat_member import chat_member_added
+from keep_alive import keep_alive
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -36,6 +37,8 @@ if __name__ == '__main__':
     app.add_handler(MessageHandler(filters.TEXT, handle_message))
 
     app.post_init = on_startup
+
+    keep_alive()
 
     logger.info("Bot is polling...")
     app.run_polling()
