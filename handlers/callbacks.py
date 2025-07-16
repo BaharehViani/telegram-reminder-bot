@@ -1,7 +1,7 @@
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import ContextTypes
 from utils.data import load_user_data, save_user_data, load_chat_data, save_chat_data
-from utils.keyboards import get_destination_keyboard, get_edit_choice_keyboard, build_weekdays_keyboard, get_main_keyboard, get_cancel_keyboard
+from utils.keyboards import get_destination_keyboard, get_edit_choice_keyboard, build_weekdays_keyboard, get_main_keyboard, get_cancel_keyboard, get_try_again_keyboard
 from utils.constants import DAYS_OF_WEEK, WAITING_FOR_EDIT_FREQUENCY, BOT_USERNAME
 import logging
 import datetime
@@ -240,10 +240,18 @@ async def destination_callback(update: Update, context: ContextTypes.DEFAULT_TYP
                 await query.edit_message_text(f"✅ گروه/کانال '{chat.title}' با موفقیت ثبت شد.")
                 logger.info(f"User {query.from_user.id} registered chat {chat_id} ({chat.title})")
             else:
-                await query.edit_message_text(f"⛔ شما یا ربات {BOT_USERNAME} باید ادمین این گروه/کانال باشید.")
+                keyboard = get_try_again_keyboard(chat_id)
+                await query.edit_message_text(
+                    f"⛔ شما و ربات {BOT_USERNAME} باید ادمین این گروه/کانال باشید.",
+                    reply_markup=keyboard
+                )
                 logger.warning(f"User {query.from_user.id} or bot not admin in chat {chat_id}")
         except Exception as e:
-            await query.edit_message_text(f"⛔ خطا در ثبت گروه/کانال: {str(e)}")
+            keyboard = get_try_again_keyboard(chat_id)
+            await query.edit_message_text(
+                f"⛔ خطا در ثبت گروه/کانال: {str(e)}",
+                reply_markup=keyboard
+            )
             logger.error(f"Error registering chat {chat_id} for user {query.from_user.id}: {str(e)}")
         return
 

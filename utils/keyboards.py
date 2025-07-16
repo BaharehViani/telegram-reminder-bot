@@ -47,3 +47,6 @@ def build_weekdays_keyboard(selected_days):
         keyboard.append([InlineKeyboardButton(label, callback_data=f"toggle_weekday:{day}")])
     keyboard.append([InlineKeyboardButton("✅ تایید", callback_data="confirm_weekdays")])
     return InlineKeyboardMarkup(keyboard)
+
+def get_try_again_keyboard(chat_id):
+    return [[InlineKeyboardButton("تلاش مجدد", callback_data=f"register_chat:{chat_id}")]]
