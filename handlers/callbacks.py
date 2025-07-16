@@ -273,7 +273,7 @@ async def destination_callback(update: Update, context: ContextTypes.DEFAULT_TYP
         admin_chats = await get_admin_chats(context, user_id)
         keyboard = get_destination_keyboard(admin_chats)
         await query.edit_message_text(
-            "📢 مقصد جدید را انتخاب کنید:\n"
+            "📢 یادآوری کجا ارسال شود؟\n"
             "⚠️ اگر گروه یا کانال مورد نظرتان در لیست نیست:\n"
             "1️⃣ ربات را به گروه/کانال اضافه کنید.\n"
             "2️⃣ ربات را ادمین کنید.\n"
