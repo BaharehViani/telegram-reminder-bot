@@ -10,9 +10,13 @@ logger = logging.getLogger(__name__)
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
+    chat_type = update.effective_chat.type
     context.user_data.update(load_user_data(user_id))
     txt = update.message.text.strip() if update.message.text else None
 
+    if chat_type in ["group", "supergroup", "channel"]:
+        return
+    
     if txt == "لغو ایجاد یادآور جدید":
         if context.user_data.get("current_reminder_id"):
             current_id = context.user_data["current_reminder_id"]
