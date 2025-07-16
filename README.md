@@ -1,6 +1,6 @@
 # telegram-reminder-bot
 
-🤖 "Yadet Nare" is a persian reminder assistant that helps you never forget a thing!
+🤖 **"Yadet Nare"** is a Persian reminder assistant that helps you never forget a thing!
 
 With this bot, you can:  
 ✅ Set various types of reminders: daily, weekly, monthly, or for specific dates  
@@ -11,4 +11,4 @@ With this bot, you can:
 
 💯 "Yadet Nare" is perfect for organizing personal tasks, team schedules, study plans, and more!  
 
-👉 Try it now: @YadettNareBot
+👉 Try it now: [@YadettNareBot](https://t.me/YadettNareBot)
