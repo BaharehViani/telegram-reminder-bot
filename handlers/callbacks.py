@@ -272,7 +272,6 @@ async def destination_callback(update: Update, context: ContextTypes.DEFAULT_TYP
     elif data == "dest:reload":
         admin_chats = await get_admin_chats(context, user_id)
         keyboard = get_destination_keyboard(admin_chats)
-        is_editing = context.user_data.get("waiting_for_edit_destination", False) and context.user_data.get("waiting_for_edit_choice", False)
         if is_editing:
             await query.edit_message_text(
                 "📢 مقصد جدید را انتخاب کنید:\n"

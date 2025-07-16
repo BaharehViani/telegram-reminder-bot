@@ -48,6 +48,13 @@ async def help_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def new_reminder_command(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_id = update.effective_user.id
     context.user_data.update(load_user_data(user_id))
+
+    context.user_data["waiting_for_edit_choice"] = False
+    context.user_data["waiting_for_edit_message"] = False
+    context.user_data["waiting_for_edit_time"] = False
+    context.user_data["waiting_for_edit_frequency"] = False
+    context.user_data["waiting_for_edit_destination"] = False
+    
     reminders = context.user_data.get("reminders", [])
     new_id = max([r["id"] for r in reminders], default=0) + 1
     new_reminder = {"id": new_id}
