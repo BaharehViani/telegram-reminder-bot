@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
-BOT_USERNAME = os.getenv("SUPPORT_USERNAME")
+BOT_USERNAME = os.getenv("BOT_USERNAME")
 SUPPORT_USERNAME = os.getenv("SUPPORT_USERNAME")
 
 DATA_FILE = "reminders.json"
