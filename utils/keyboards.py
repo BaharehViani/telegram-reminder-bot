@@ -49,4 +49,5 @@ def build_weekdays_keyboard(selected_days):
     return InlineKeyboardMarkup(keyboard)
 
 def get_try_again_keyboard(chat_id):
-    return [[InlineKeyboardButton("تلاش مجدد", callback_data=f"register_chat:{chat_id}")]]
+    keyboard = [[InlineKeyboardButton("تلاش مجدد", callback_data=f"register_chat:{chat_id}")]]
+    return InlineKeyboardMarkup(keyboard)
