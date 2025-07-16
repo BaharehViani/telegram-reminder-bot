@@ -21,7 +21,7 @@ def load_all_data():
 async def send_reminder(chat_id, reminder_id, message):
     print(f"Attempting to send reminder {reminder_id} to chat {chat_id} with message: {message}")
     try:
-        await bot.send_message(chat_id=chat_id, text=f"🔔 یادآوری: {message}")
+        await bot.send_message(chat_id=chat_id, text=f"🔔 یادآوری:\n{message}")
         print(f"Successfully sent reminder {reminder_id} to chat {chat_id}")
     except Exception as e:
         print(f"Error sending reminder {reminder_id} to chat {chat_id}: {e}")
