@@ -272,15 +272,26 @@ async def destination_callback(update: Update, context: ContextTypes.DEFAULT_TYP
     elif data == "dest:reload":
         admin_chats = await get_admin_chats(context, user_id)
         keyboard = get_destination_keyboard(admin_chats)
-        await query.edit_message_text(
-            "📢 یادآوری کجا ارسال شود؟\n"
-            "⚠️ اگر گروه یا کانال مورد نظرتان در لیست نیست:\n"
-            "1️⃣ ربات را به گروه/کانال اضافه کنید.\n"
-            "2️⃣ ربات را ادمین کنید.\n"
-            "3️⃣ در گروه/کانال، روی دکمه «ثبت گروه/کانال» در پیام ارسال شده توسط ربات کلیک کنید.\n"
-            "4️⃣ به اینجا برگردید و «به‌روزرسانی لیست» را بزنید تا گروه/کانال جدید نمایش داده شود.\n",
-            reply_markup=keyboard
-        )
+        if is_editing:
+            await query.edit_message_text(
+                "📢 مقصد جدید را انتخاب کنید:\n"
+                "⚠️ اگر گروه یا کانال مورد نظرتان در لیست نیست:\n"
+                "1️⃣ ربات را به گروه/کانال اضافه کنید.\n"
+                "2️⃣ ربات را ادمین کنید.\n"
+                "3️⃣ در گروه/کانال، روی دکمه «ثبت گروه/کانال» در پیام ارسال شده توسط ربات کلیک کنید.\n"
+                "4️⃣ به اینجا برگردید و «به‌روزرسانی لیست» را بزنید تا گروه/کانال جدید نمایش داده شود.\n",
+                reply_markup=keyboard
+            )
+        else:
+            await query.edit_message_text(
+                "📢 یادآوری کجا ارسال شود؟\n"
+                "⚠️ اگر گروه یا کانال مورد نظرتان در لیست نیست:\n"
+                "1️⃣ ربات را به گروه/کانال اضافه کنید.\n"
+                "2️⃣ ربات را ادمین کنید.\n"
+                "3️⃣ در گروه/کانال، روی دکمه «ثبت گروه/کانال» در پیام ارسال شده توسط ربات کلیک کنید.\n"
+                "4️⃣ به اینجا برگردید و «به‌روزرسانی لیست» را بزنید تا گروه/کانال جدید نمایش داده شود.\n",
+                reply_markup=keyboard
+            )
         logger.info(f"User {user_id} reloaded destination list for reminder {current_id}")
     elif data.startswith("dest:"):
         chat_id = int(data.split(":")[1])
