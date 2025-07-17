@@ -13,8 +13,8 @@ async def get_admin_chats(context, user_id):
     user_chat_data = chat_data.get(str(user_id), {})
     admin_chats = []
     updated_user_chat_data = {}
-
-    for chat_id in user_chat_data.items():
+    
+    for chat_id in user_chat_data:
         try:
             admins = await context.bot.get_chat_administrators(chat_id)
             admin_ids = [admin.user.id for admin in admins]
