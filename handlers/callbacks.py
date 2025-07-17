@@ -17,11 +17,10 @@ async def get_admin_chats(context, user_id):
             admins = await context.bot.get_chat_administrators(chat_id)
             admin_ids = [admin.user.id for admin in admins]
             if user_id in admin_ids and context.bot.id in admin_ids:
-                chat = await context.bot.get_chat(chat_id)
-                title = chat.title if chat.title else "بدون نام"
-                last_used = chat_info.get("last_used", datetime.datetime.now().isoformat())
+                title = chat_info.get("title", "بدون نام")
+                last_used = chat_info.get("last_used", "1970-01-01T00:00:00")
                 admin_chats.append((chat_id, title, last_used))
-                updated_chat_data[chat_id] = {"title": title, "last_used": last_used}
+                updated_chat_data[chat_id] = chat_info
         except Exception as e:
             logger.error(f"Error checking admins for chat {chat_id}: {e}")
     save_chat_data(updated_chat_data)
