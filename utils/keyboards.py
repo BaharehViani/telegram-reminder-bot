@@ -34,8 +34,7 @@ def get_destination_keyboard(admin_chats, include_private=True):
     if include_private:
         keyboard.append([InlineKeyboardButton("چت خصوصی من", callback_data="dest:private")])
     if admin_chats:
-        recent_chats = sorted(admin_chats, key=lambda x: x[2], reverse=True)
-        for chat_id, title, _ in recent_chats:
+        for chat_id, title in reversed(admin_chats):
             keyboard.append([InlineKeyboardButton(title, callback_data=f"dest:{chat_id}")])
     keyboard.append([InlineKeyboardButton("به‌روزرسانی لیست", callback_data="dest:reload")])
     return InlineKeyboardMarkup(keyboard)
