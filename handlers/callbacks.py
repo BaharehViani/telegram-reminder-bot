@@ -320,9 +320,6 @@ async def destination_callback(update: Update, context: ContextTypes.DEFAULT_TYP
                 reminder["chat_id"] = chat_id
                 context.user_data["waiting_for_edit_destination"] = False
                 chat = await context.bot.get_chat(chat_id)
-                chat_data = load_chat_data()
-                chat_data[str(chat_id)] = {"title": chat.title}
-                save_chat_data(chat_data)
                 if is_editing:
                     context.user_data["waiting_for_edit_choice"] = True
                     await query.edit_message_text(f"✅ مقصد تنظیم شد: {chat.title}. بخش دیگری را ویرایش یا تایید کنید:", reply_markup=get_edit_choice_keyboard())
