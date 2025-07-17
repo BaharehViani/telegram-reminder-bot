@@ -25,20 +25,18 @@ def load_user_data(user_id):
     return {}
 
 def load_chat_data():
-    try:
-        if os.path.exists("chat_data.json"):
-            with open("chat_data.json", "r", encoding="utf-8") as f:
+    if os.path.exists(CHAT_DATA_FILE):
+        try:
+            with open(CHAT_DATA_FILE, "r", encoding="utf-8") as f:
                 return json.load(f)
-        return {}
-    except Exception as e:
-        return {}
+        except json.JSONDecodeError:
+            print("Failed to decode chat_data.json")
+            return {}
+    return {}
 
 def save_chat_data(chat_data):
-    try:
-        with open("chat_data.json", "w", encoding="utf-8") as f:
-            json.dump(chat_data, f, ensure_ascii=False, indent=2)
-    except Exception as e:
-        print(f"Error saving chat_data.json: {e}")
+    with open(CHAT_DATA_FILE, "w", encoding="utf-8") as f:
+        json.dump(chat_data, f, ensure_ascii=False, indent=2)
 
 def save_user_data(user_id, user_data):
     all_data = {}

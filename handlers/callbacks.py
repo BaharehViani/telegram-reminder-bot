@@ -8,63 +8,26 @@ import datetime
 
 logger = logging.getLogger(__name__)
 
-async def get_admin_chats(context: ContextTypes.DEFAULT_TYPE, user_id: int):
+async def get_admin_chats(context, user_id):
     chat_data = load_chat_data()
+    user_chat_data = chat_data.get(str(user_id), {})
     admin_chats = []
-    updated_chat_data = chat_data.copy()  # Copy existing chat_data to preserve other users' chats
+    updated_user_chat_data = {}
 
-    for chat_id, chat_info in chat_data.items():
+    for chat_id in user_chat_data.items():
         try:
             admins = await context.bot.get_chat_administrators(chat_id)
             admin_ids = [admin.user.id for admin in admins]
-            # Initialize user_ids if it doesn't exist
-            if "user_ids" not in chat_info:
-                chat_info["user_ids"] = []
-            # Check if user and bot are admins
             if user_id in admin_ids and context.bot.id in admin_ids:
                 chat = await context.bot.get_chat(chat_id)
                 title = chat.title if chat.title else "بدون نام"
-                last_used = chat_info.get("last_used", datetime.datetime.now().isoformat())
-                # Add chat to admin_chats for return
-                admin_chats.append((chat_id, title, last_used))
-                # Update chat_info with user_id
-                if user_id not in chat_info["user_ids"]:
-                    chat_info["user_ids"].append(user_id)
-                updated_chat_data[chat_id] = {
-                    "title": title,
-                    "last_used": last_used,
-                    "user_ids": chat_info["user_ids"]
-                }
-            else:
-                # Remove user_id from user_ids if present
-                if user_id in chat_info["user_ids"]:
-                    chat_info["user_ids"].remove(user_id)
-                # Keep chat in updated_chat_data if other users are still associated
-                if chat_info["user_ids"]:
-                    updated_chat_data[chat_id] = {
-                        "title": chat_info["title"],
-                        "last_used": chat_info["last_used"],
-                        "user_ids": chat_info["user_ids"]
-                    }
-                else:
-                    # Remove chat only if no users are associated
-                    updated_chat_data.pop(chat_id, None)
+                admin_chats.append((chat_id, title))
+                updated_user_chat_data[chat_id] = {"title": title}
         except Exception as e:
             logger.error(f"Error checking admins for chat {chat_id}: {e}")
-            # Remove user_id from user_ids if present
-            if user_id in chat_info.get("user_ids", []):
-                chat_info["user_ids"].remove(user_id)
-            # Keep chat in updated_chat_data if other users are still associated
-            if chat_info.get("user_ids", []):
-                updated_chat_data[chat_id] = {
-                    "title": chat_info["title"],
-                    "last_used": chat_info["last_used"],
-                    "user_ids": chat_info["user_ids"]
-                }
-            else:
-                updated_chat_data.pop(chat_id, None)
 
-    save_chat_data(updated_chat_data)
+    chat_data[str(user_id)] = updated_user_chat_data
+    save_chat_data(chat_data)
     return admin_chats
 
 async def frequency_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
@@ -275,7 +238,9 @@ async def destination_callback(update: Update, context: ContextTypes.DEFAULT_TYP
             if query.from_user.id in admin_ids and context.bot.id in admin_ids:
                 chat = await context.bot.get_chat(chat_id)
                 chat_data = load_chat_data()
-                chat_data[str(chat_id)] = {"title": chat.title, "last_used": datetime.datetime.now().isoformat()}
+                if str(user_id) not in chat_data:
+                    chat_data[str(user_id)] = {}
+                chat_data[str(user_id)][str(chat_id)] = {"title": chat.title}
                 save_chat_data(chat_data)
                 await query.edit_message_text(f"✅ گروه/کانال '{chat.title}' با موفقیت ثبت شد.")
                 logger.info(f"User {query.from_user.id} registered chat {chat_id} ({chat.title})")
@@ -356,7 +321,7 @@ async def destination_callback(update: Update, context: ContextTypes.DEFAULT_TYP
                 context.user_data["waiting_for_edit_destination"] = False
                 chat = await context.bot.get_chat(chat_id)
                 chat_data = load_chat_data()
-                chat_data[str(chat_id)] = {"title": chat.title, "last_used": datetime.datetime.now().isoformat()}
+                chat_data[str(chat_id)] = {"title": chat.title}
                 save_chat_data(chat_data)
                 if is_editing:
                     context.user_data["waiting_for_edit_choice"] = True
