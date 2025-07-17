@@ -82,8 +82,11 @@ async def show_reminder_command(update: Update, context: ContextTypes.DEFAULT_TY
     time = reminder.get("time", "⛔ تنظیم نشده")
     freq = reminder.get("frequency", "⛔ تنظیم نشده")
     chat_id = reminder.get("chat_id", user_id)
-    chat_data = load_chat_data()
-    destination = "چت خصوصی" if chat_id == user_id else chat_data.get(str(chat_id), {}).get("title", "گروه/کانال ناشناس")
+    try:
+        destination = "چت خصوصی" if chat_id == user_id else (await context.bot.get_chat(chat_id)).title or "بدون نام"
+    except Exception as e:
+        destination = "گروه/کانال ناشناس"
+        logger.error(f"Error getting chat title for chat_id {chat_id}: {e}")
     formatted_time = time.strftime("%H:%M") if isinstance(time, datetime.time) else time
     freq_translated = {"everyday": "روزانه", "weekdays": "هفتگی - چند روز", "weekly": "هفتگی - یک روز", "monthly": "ماهانه", "once": "یک تاریخ مشخص", "multi_date": "چند تاریخ مشخص"}.get(freq, "⛔ تنظیم نشده")
 
@@ -134,13 +137,17 @@ async def list_reminders_command(update: Update, context: ContextTypes.DEFAULT_T
         await update.message.reply_text("شما هنوز یادآوری تنظیم نکرده‌اید.", reply_markup=get_main_keyboard())
         logger.info(f"User {user_id} has no reminders")
         return
-    chat_data = load_chat_data()
+
     for reminder in reminders:
         msg = reminder.get("message", "⛔ تنظیم نشده")
         time = reminder.get("time", "⛔ تنظیم نشده")
         freq = reminder.get("frequency", "⛔ تنظیم نشده")
         chat_id = reminder.get("chat_id", user_id)
-        destination = "چت خصوصی" if chat_id == user_id else chat_data.get(str(chat_id), {}).get("title", "گروه/کانال ناشناس")
+        try:
+            destination = "چت خصوصی" if chat_id == user_id else (await context.bot.get_chat(chat_id)).title or "بدون نام"
+        except Exception as e:
+            destination = "گروه/کانال ناشناس"
+            logger.error(f"Error getting chat title for chat_id {chat_id}: {e}")
         formatted_time = time.strftime("%H:%M") if isinstance(time, datetime.time) else time
         freq_translated = {"everyday": "روزانه", "weekdays": "هفتگی - چند روز", "weekly": "هفتگی - یک روز", "monthly": "ماهانه", "once": "یک تاریخ مشخص", "multi_date": "چند تاریخ مشخص"}.get(freq, "⛔ تنظیم نشده")
 
