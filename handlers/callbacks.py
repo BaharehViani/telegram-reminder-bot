@@ -58,9 +58,9 @@ async def frequency_callback(update: Update, context: ContextTypes.DEFAULT_TYPE)
             text = (
                 "📢 یادآوری کجا ارسال شود؟\n"
                 "⚠️ اگر گروه یا کانال مورد نظرتان در لیست نیست:\n"
-                "1️⃣ ربات را به گروه/کانال اضافه کنید.\n"
-                "2️⃣ ربات را ادمین کنید.\n"
-                "3️⃣ در گروه/کانال، روی دکمه «ثبت گروه/کانال» در پیام ارسال شده توسط ربات کلیک کنید.\n"
+                "1️⃣ بات را به گروه/کانال اضافه کنید.\n"
+                "2️⃣ بات را ادمین کنید.\n"
+                "3️⃣ در گروه/کانال، روی دکمه «ثبت گروه/کانال» در پیام ارسال شده توسط بات کلیک کنید.\n"
                 "4️⃣ به اینجا برگردید و «به‌روزرسانی لیست» را بزنید تا گروه/کانال جدید نمایش داده شود.\n"
             )
             await query.message.reply_text(text, reply_markup=get_destination_keyboard(await get_admin_chats(context, user_id)))
@@ -152,9 +152,9 @@ async def day_selection_callback(update: Update, context: ContextTypes.DEFAULT_T
             text = (
                 "📢 یادآوری کجا ارسال شود؟\n"
                 "⚠️ اگر گروه یا کانال مورد نظرتان در لیست نیست:\n"
-                "1️⃣ ربات را به گروه/کانال اضافه کنید.\n"
-                "2️⃣ ربات را ادمین کنید.\n"
-                "3️⃣ در گروه/کانال، روی دکمه «ثبت گروه/کانال» در پیام ارسال شده توسط ربات کلیک کنید.\n"
+                "1️⃣ بات را به گروه/کانال اضافه کنید.\n"
+                "2️⃣ بات را ادمین کنید.\n"
+                "3️⃣ در گروه/کانال، روی دکمه «ثبت گروه/کانال» در پیام ارسال شده توسط بات کلیک کنید.\n"
                 "4️⃣ به اینجا برگردید و «به‌روزرسانی لیست» را بزنید تا گروه/کانال جدید نمایش داده شود.\n"
             )
             await query.message.reply_text(text, reply_markup=get_destination_keyboard(await get_admin_chats(context, user_id)))
@@ -172,9 +172,9 @@ async def day_selection_callback(update: Update, context: ContextTypes.DEFAULT_T
             text = (
                 "📢 یادآوری کجا ارسال شود؟\n"
                 "⚠️ اگر گروه یا کانال مورد نظرتان در لیست نیست:\n"
-                "1️⃣ ربات را به گروه/کانال اضافه کنید.\n"
-                "2️⃣ ربات را ادمین کنید.\n"
-                "3️⃣ در گروه/کانال، روی دکمه «ثبت گروه/کانال» در پیام ارسال شده توسط ربات کلیک کنید.\n"
+                "1️⃣ بات را به گروه/کانال اضافه کنید.\n"
+                "2️⃣ بات را ادمین کنید.\n"
+                "3️⃣ در گروه/کانال، روی دکمه «ثبت گروه/کانال» در پیام ارسال شده توسط بات کلیک کنید.\n"
                 "4️⃣ به اینجا برگردید و «به‌روزرسانی لیست» را بزنید تا گروه/کانال جدید نمایش داده شود.\n"
             )
             await query.message.reply_text(text, reply_markup=get_destination_keyboard(await get_admin_chats(context, user_id)))
@@ -208,9 +208,9 @@ async def day_selection_callback(update: Update, context: ContextTypes.DEFAULT_T
                 text = (
                     "📢 یادآوری کجا ارسال شود؟\n"
                     "⚠️ اگر گروه یا کانال مورد نظرتان در لیست نیست:\n"
-                    "1️⃣ ربات را به گروه/کانال اضافه کنید.\n"
-                    "2️⃣ ربات را ادمین کنید.\n"
-                    "3️⃣ در گروه/کانال، روی دکمه «ثبت گروه/کانال» در پیام ارسال شده توسط ربات کلیک کنید.\n"
+                    "1️⃣ بات را به گروه/کانال اضافه کنید.\n"
+                    "2️⃣ بات را ادمین کنید.\n"
+                    "3️⃣ در گروه/کانال، روی دکمه «ثبت گروه/کانال» در پیام ارسال شده توسط بات کلیک کنید.\n"
                     "4️⃣ به اینجا برگردید و «به‌روزرسانی لیست» را بزنید تا گروه/کانال جدید نمایش داده شود.\n"
                 )
                 await query.message.reply_text(text, reply_markup=get_destination_keyboard(await get_admin_chats(context, user_id)))
@@ -239,7 +239,7 @@ async def destination_callback(update: Update, context: ContextTypes.DEFAULT_TYP
                 await query.edit_message_text(f"✅ گروه/کانال '{chat.title}' با موفقیت ثبت شد.")
                 logger.info(f"User {query.from_user.id} registered chat {chat_id} ({chat.title})")
             else:
-                new_text = f"⛔ شما و ربات {BOT_USERNAME} باید ادمین این گروه/کانال باشید."
+                new_text = f"⛔ شما و بات {BOT_USERNAME} باید ادمین این گروه/کانال باشید."
                 keyboard = get_try_again_keyboard(chat_id)
                 if query.message.text != new_text or query.message.reply_markup != keyboard:
                     await query.edit_message_text(
@@ -288,9 +288,9 @@ async def destination_callback(update: Update, context: ContextTypes.DEFAULT_TYP
             await query.edit_message_text(
                 "📢 مقصد جدید را انتخاب کنید:\n"
                 "⚠️ اگر گروه یا کانال مورد نظرتان در لیست نیست:\n"
-                "1️⃣ ربات را به گروه/کانال اضافه کنید.\n"
-                "2️⃣ ربات را ادمین کنید.\n"
-                "3️⃣ در گروه/کانال، روی دکمه «ثبت گروه/کانال» در پیام ارسال شده توسط ربات کلیک کنید.\n"
+                "1️⃣ بات را به گروه/کانال اضافه کنید.\n"
+                "2️⃣ بات را ادمین کنید.\n"
+                "3️⃣ در گروه/کانال، روی دکمه «ثبت گروه/کانال» در پیام ارسال شده توسط بات کلیک کنید.\n"
                 "4️⃣ به اینجا برگردید و «به‌روزرسانی لیست» را بزنید تا گروه/کانال جدید نمایش داده شود.\n",
                 reply_markup=keyboard
             )
@@ -298,9 +298,9 @@ async def destination_callback(update: Update, context: ContextTypes.DEFAULT_TYP
             await query.edit_message_text(
                 "📢 یادآوری کجا ارسال شود؟\n"
                 "⚠️ اگر گروه یا کانال مورد نظرتان در لیست نیست:\n"
-                "1️⃣ ربات را به گروه/کانال اضافه کنید.\n"
-                "2️⃣ ربات را ادمین کنید.\n"
-                "3️⃣ در گروه/کانال، روی دکمه «ثبت گروه/کانال» در پیام ارسال شده توسط ربات کلیک کنید.\n"
+                "1️⃣ بات را به گروه/کانال اضافه کنید.\n"
+                "2️⃣ بات را ادمین کنید.\n"
+                "3️⃣ در گروه/کانال، روی دکمه «ثبت گروه/کانال» در پیام ارسال شده توسط بات کلیک کنید.\n"
                 "4️⃣ به اینجا برگردید و «به‌روزرسانی لیست» را بزنید تا گروه/کانال جدید نمایش داده شود.\n",
                 reply_markup=keyboard
             )
@@ -327,7 +327,7 @@ async def destination_callback(update: Update, context: ContextTypes.DEFAULT_TYP
                     logger.info(f"User {user_id} set destination to chat {chat_id} ({chat.title}) for reminder {current_id} (new reminder)")
                 save_user_data(user_id, context.user_data)
             else:
-                await query.edit_message_text(f"⛔ شما یا ربات {BOT_USERNAME} در این گروه/کانال ادمین نیستید.")
+                await query.edit_message_text(f"⛔ شما یا بات {BOT_USERNAME} در این گروه/کانال ادمین نیستید.")
                 logger.warning(f"User {user_id} or bot not admin in chat {chat_id} for reminder {current_id}")
         except Exception as e:
             await query.edit_message_text(f"⛔ خطا: {str(e)}")
@@ -372,9 +372,9 @@ async def action_callback(update: Update, context: ContextTypes.DEFAULT_TYPE):
             await query.edit_message_text(
                 "📢 مقصد جدید را انتخاب کنید:\n"
                 "⚠️ اگر گروه یا کانال مورد نظرتان در لیست نیست:\n"
-                "1️⃣ ربات را به گروه/کانال اضافه کنید.\n"
-                "2️⃣ ربات را ادمین کنید.\n"
-                "3️⃣ در گروه/کانال، روی دکمه «ثبت گروه/کانال» در پیام ارسال شده توسط ربات کلیک کنید.\n"
+                "1️⃣ بات را به گروه/کانال اضافه کنید.\n"
+                "2️⃣ بات را ادمین کنید.\n"
+                "3️⃣ در گروه/کانال، روی دکمه «ثبت گروه/کانال» در پیام ارسال شده توسط بات کلیک کنید.\n"
                 "4️⃣ به اینجا برگردید و «به‌روزرسانی لیست» را بزنید تا گروه/کانال جدید نمایش داده شود.\n",
                 reply_markup=keyboard
             )
