@@ -63,7 +63,7 @@ async def new_reminder_command(update: Update, context: ContextTypes.DEFAULT_TYP
     context.user_data["current_reminder_id"] = new_id
     context.user_data["waiting_for_message"] = True
     await update.message.reply_text(
-        f"یادآور جدید با شناسه {new_id} ایجاد شد. لطفاً متن پیام یادآوری را وارد کنید:",
+        f"یادآور جدید با شماره {new_id} ایجاد شد. لطفاً متن پیام یادآوری را وارد کنید:",
         reply_markup=get_cancel_keyboard()
     )
     save_user_data(user_id, context.user_data)
@@ -110,7 +110,7 @@ async def show_reminder_command(update: Update, context: ContextTypes.DEFAULT_TY
 
     if freq == "everyday":
         message_text = (
-            f"📋 اطلاعات آخرین یادآوری شما (شناسه {reminder['id']}):\n\n"
+            f"📋 اطلاعات آخرین یادآوری شما (شماره {reminder['id']}):\n\n"
             f"📝 پیام: {msg}\n"
             f"⏰ زمان: {formatted_time}\n"
             f"🔁 الگوی تکرار: {freq_translated}\n"
@@ -118,7 +118,7 @@ async def show_reminder_command(update: Update, context: ContextTypes.DEFAULT_TY
         )
     else:
         message_text = (
-            f"📋 اطلاعات آخرین یادآوری شما (شناسه {reminder['id']}):\n\n"
+            f"📋 اطلاعات آخرین یادآوری شما (شماره {reminder['id']}):\n\n"
             f"📝 پیام: {msg}\n"
             f"⏰ زمان: {formatted_time}\n"
             f"🔁 الگوی تکرار: {freq_translated}\n"
